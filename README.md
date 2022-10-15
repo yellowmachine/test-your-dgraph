@@ -1,4 +1,4 @@
-#test your [dgraph](https://dgraph.io/) database with your favorite test tool
+# test your [dgraph](https://dgraph.io/) schema with your favorite test tool
 
 *(Prerequiste: [docker](https://www.docker.com/) installed)*
 
@@ -9,10 +9,12 @@ cd my-test-dgraph
 
 npm i
 
-npm run test
+npm run test # edit package.json to change test tool
 ```
 
-You can change default settings:
+Now you can edit your schema or your tests and see the test report on the console.
+
+You can change default settings on *yellow.config.js*:
 
 ```js
 {
