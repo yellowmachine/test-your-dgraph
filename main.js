@@ -25,11 +25,12 @@ function nodemonHelper(container){
 
 async function main(){
     const docker = new Docker();
+    let container
     try {
         //c = await docker.container.list()
         //console.log(c)
 
-        const container = await docker.container.create({
+        container = await docker.container.create({
             Image: config.image,
             name: 'testdgraphv6',
             PortBindings: {
