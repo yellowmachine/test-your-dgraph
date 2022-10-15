@@ -1,4 +1,4 @@
-# test your [dgraph](https://dgraph.io/) database with your favorite test tool
+#test your [dgraph](https://dgraph.io/) database with your favorite test tool
 
 *(Prerequiste: [docker](https://www.docker.com/) installed)*
 
