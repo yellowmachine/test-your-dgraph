@@ -1,4 +1,6 @@
-[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine)
+<a href="https://vshymanskyy.github.io/StandWithUkraine">
+		<img src="https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg">
+</a>
 
 # Test your [dgraph](https://dgraph.io/) schema with your favorite test tool
 
