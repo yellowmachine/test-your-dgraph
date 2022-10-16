@@ -1,3 +1,5 @@
+[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct.svg)](https://vshymanskyy.github.io/StandWithUkraine)
+
 # Test your [dgraph](https://dgraph.io/) schema with your favorite test tool
 
 *(Prerequiste: [docker](https://www.docker.com/) installed)*
