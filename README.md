@@ -107,7 +107,7 @@ File: ```yellow.config.js```
 ```js
 module.exports = {
     ...
-    schema: "schema.js",
+    schema: "./schema/schema.js",
     ...
 ```
 
