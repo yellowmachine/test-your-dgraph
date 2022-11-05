@@ -1,8 +1,8 @@
 const npm = require('npm-commands');
 const axios = require('axios')
 const chalk = require('chalk');
-const fs = require('fs')
-const { config } = require('./setup')
+//const fs = require('fs')
+const { config, loadSchema } = require('./setup')
 const colorize = require('json-colorizer');
 
 function sleep(ms) {
@@ -10,10 +10,14 @@ function sleep(ms) {
 }
 
 async function main(){
-    let data = await fs.promises.readFile(`./${config.schema}`, 'utf8')
-    data = data + "\n" + config.schemaFooter(config)
+    const name = `./${config.schema}`
+    let data = ""
+    if(name.endsWith(".js")) data = require(name)
+    else data = await loadSchema(name)
+    //data = data + "\n" + config.schemaFooter(config)
+    data = data + config.schemaFooter(config)
     const schema = data.toString()
-
+    
     console.log(chalk.blue(config.welcome))
     let test = true
 

@@ -1,3 +1,5 @@
+#include enum.graphql
+
 type Job @auth(
     query: {
         rule:  "{$ROLE: { eq: \"ADMIN\" } }" 

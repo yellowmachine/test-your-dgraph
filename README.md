@@ -15,7 +15,7 @@ cd my-test-dgraph
 
 npm i
 
-npm run test # it's using jest, but you can change it in package.json
+npm run test
 ```
 
 You can change default settings:
@@ -24,7 +24,7 @@ You can change default settings:
 {
     //pretty welcome ;)
     welcome: chalk.yellow("yellow") + " here testing your dgraph",
-    schema: "schema.graphql",
+    schema: "schema.graphql", //schema.js
     url: "http://localhost",
     port: '8080',
     claims: "https://my.app.io/jwt/claims",
@@ -40,8 +40,8 @@ Example
 // test example
 
 //client is a tokenized instance of graphql-request "GraphQLClient"
-const { gql } = require('graphql-request')
-const { dropData, client} = require('../setup')
+const tap = require('tap')
+const { dropData, client, gql} = require('../setup')
 
 SETUP = gql`
 mutation MyMutation {
@@ -61,14 +61,75 @@ query MyQuery {
   }
 }
 `
-beforeEach(async () => {
+
+tap.beforeEach(async () => {
   await dropData()
 });
 
-test('wow!', async () => {
+tap.test('wow!', async (t) => {
     await client({ROLE: 'ADMIN'}).request(SETUP)
     let response = await client({ROLE: 'NONO'}).request(QUERY)
-    expect(response.queryJob.length).toBe(0)
+    t.equal(response.queryJob.length, 0)
 });
 ```
 
+Here an example of a splited schema:
+
+File: ```enum.graphql```
+```graphql
+enum Role {
+  ADMIN
+  DEVELOPER
+}
+```
+
+File: ```schema.graphql```
+```graphql
+#include enum.graphql
+
+type Job @auth(
+    query: {
+        rule:  "{$ROLE: { eq: \"ADMIN\" } }" 
+    }
+){
+    id: ID!
+    title: String!
+    completed: Boolean!
+    command: String!
+}
+```
+
+Later you can ```npm run print``` to print full schema to stdout.
+
+If you want more flexibility you can do this:
+
+File: ```yellow.config.js```
+```js
+module.exports = {
+    ...
+    schema: "schema.js",
+    ...
+```
+
+File: ```schema.js```
+
+```js
+const { quote, gql } = require('./setup')
+
+const ADMIN = quote("ADMIN")
+
+module.exports = gql`
+type Job @auth(
+    query: {
+        rule:  "{$ROLE: { eq: ${ADMIN} } }" 
+    }
+){
+    id: ID!
+    title: String!
+    completed: Boolean!
+    command: String!
+}
+`
+```
+
+You can split or do whatever you want, it's javascript and gql.

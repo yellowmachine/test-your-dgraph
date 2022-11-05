@@ -1,6 +1,7 @@
 module.exports = {
     //welcome: "Hello!",
     //schema: "schema.graphql",
+    schema: "schema.js",
     //url: "http://localhost",
     //claims: "https://my.app.io/jwt/claims",
     //secret: "secret",

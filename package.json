@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node main.js",
-    "devtest": "jest tests/"
+    "print": "node print.js",
+    "devtest": "tap --no-coverage-report --no-check-coverage tests/*.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "node-docker-api": "^1.1.22",
     "nodemon": "^2.0.20",
     "npm-commands": "^1.1.0",
+    "tap": "^16.3.0",
     "wait-on": "^6.0.1"
   }
 }

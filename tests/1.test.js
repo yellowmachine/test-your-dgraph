@@ -1,5 +1,5 @@
-const { gql } = require('graphql-request')
-const { dropData, client} = require('../setup')
+const tap = require('tap')
+const { dropData, client, gql} = require('../setup')
 
 SETUP = gql`
 mutation MyMutation {
@@ -20,12 +20,12 @@ query MyQuery {
 }
 `
 
-beforeEach(async () => {
+tap.beforeEach(async () => {
   await dropData()
 });
 
-test('wow!', async () => {
+tap.test('wow!', async (t) => {
     await client({ROLE: 'ADMIN'}).request(SETUP)
     let response = await client({ROLE: 'NONO'}).request(QUERY)
-    expect(response.queryJob.length).toBe(0)
+    t.equal(response.queryJob.length, 0)
 });

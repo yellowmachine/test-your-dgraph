@@ -1,8 +1,9 @@
-const { GraphQLClient } = require('graphql-request')
+const { GraphQLClient, gql } = require('graphql-request')
 const jwt = require('jsonwebtoken');
 const axios = require("axios")
 const config = require('./yellow.config')
 const chalk = require("chalk")
+const fs = require('fs')
 
 let configWithDefaults = {
     welcome: chalk.yellow("yellow") + " here testing your dgraph",
@@ -32,8 +33,30 @@ function client(claims){
     return tokenizedGraphQLClient(token(claims))
 }
 
+async function loadSchema(name){
+    let data = await fs.promises.readFile(name, 'utf8')
+    data =  data.toString()
+    let lines = data.split("\n")
+    let i = 0
+    let line = lines[i]
+    let header = ""
+    while(line.startsWith("#include")){
+      header = header + await loadSchema(line.substring(9).trim()) + "\n"
+      i += 1
+      line = lines[i]
+    }
+    return header + data
+  }
+
+function quote(txt){
+    return `\\"${txt}\\"`
+}
+
 module.exports = {
+    quote,
     dropData,
+    gql,
     client,
+    loadSchema,
     config: configWithDefaults
 }
