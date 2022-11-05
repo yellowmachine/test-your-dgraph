@@ -24,7 +24,7 @@ You can change default settings:
 {
     //pretty welcome ;)
     welcome: chalk.yellow("yellow") + " here testing your dgraph",
-    schema: "schema.graphql", //schema.js
+    schema: "./schema/schema.graphql", //schema.js
     url: "http://localhost",
     port: '8080',
     claims: "https://my.app.io/jwt/claims",
@@ -114,7 +114,7 @@ module.exports = {
 File: ```schema.js```
 
 ```js
-const { quote, gql } = require('./setup')
+const { quote, gql } = require('../setup')
 
 const ADMIN = quote("ADMIN")
 

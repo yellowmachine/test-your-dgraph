@@ -1,4 +1,4 @@
-const { quote, gql } = require('./setup')
+const { quote, gql } = require('../setup')
 
 const ADMIN = quote("ADMIN")
 

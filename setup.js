@@ -4,10 +4,11 @@ const axios = require("axios")
 const config = require('./yellow.config')
 const chalk = require("chalk")
 const fs = require('fs')
+const path = require('path')
 
 let configWithDefaults = {
     welcome: chalk.yellow("yellow") + " here testing your dgraph",
-    schema: "schema.graphql",
+    schema: "./schema/schema.graphql",
     url: "http://localhost",
     claims: "https://my.app.io/jwt/claims",
     secret: "secret",
@@ -41,7 +42,7 @@ async function loadSchema(name){
     let line = lines[i]
     let header = ""
     while(line.startsWith("#include")){
-      header = header + await loadSchema(line.substring(9).trim()) + "\n"
+      header = header + await loadSchema(path.join(path.dirname(name), line.substring(9).trim())) + "\n"
       i += 1
       line = lines[i]
     }
